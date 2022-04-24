@@ -11,6 +11,11 @@
         component: './Welcome',
       },
       {
+        path: 'grid',
+        name: '响应式布局',
+        component: './Grid',
+      },
+      {
         component: './404',
       },
     ],

@@ -1,32 +1,26 @@
 /* eslint-disable react/no-unstable-nested-components */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Avatar } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
-
+import { Link, history } from 'umi';
 
 import type { ProSettings, BasicLayoutProps as ProLayoutProps } from '@ant-design/pro-layout';
 import ProLayout, { SettingDrawer } from '@ant-design/pro-layout';
 import defaultProps from './defaultProps';
 import defaultSettings from '../../config/defaultSettings';
 
-const colorList = [
-  { key: 'daybreak', color: '#1890ff' },
-  { key: 'dust', color: '#F5222D' },
-  { key: 'volcano', color: '#FA541C' },
-  { key: 'sunset', color: '#FAAD14' },
-  { key: 'cyan', color: '#13C2C2' },
-  { key: 'green', color: '#52C41A' },
-  { key: 'geekblue', color: '#2F54EB' },
-  { key: 'purple', color: '#722ED1' },
-];
-
-const BasicLayout: React.FC<ProLayoutProps> = (props) => {
-  const { children } = props;
+const BasicLayout: React.FC<ProLayoutProps> = ({ children }) => {
+  const query = history.location;
 
   const [pathname, setPathname] = useState('/welcome');
   const [settings, setSetting] = useState<Partial<ProSettings> | undefined>({
     ...defaultSettings,
   });
+
+  useEffect(() => {
+    setPathname(query.pathname);
+  }, [query.pathname]);
+
   return (
     <div
       id="test-pro-layout"
@@ -71,15 +65,13 @@ const BasicLayout: React.FC<ProLayoutProps> = (props) => {
             </a>
           );
         }}
-        menuItemRender={(item, dom) => (
-          <a
-            onClick={() => {
-              setPathname(item.path || '/welcome');
-            }}
-          >
-            {dom}
-          </a>
-        )}
+        menuItemRender={(menuItemProps, defaultDom) => {
+          const { isUrl, path } = menuItemProps;
+          if (isUrl || !path || location.pathname === path) {
+            return defaultDom;
+          }
+          return <Link to={path}>{defaultDom as as}</Link>;
+        }}
         rightContentRender={() => (
           <div>
             <Avatar shape="square" size="small" icon={<UserOutlined />} />
@@ -98,7 +90,6 @@ const BasicLayout: React.FC<ProLayoutProps> = (props) => {
           setSetting(changeSetting);
         }}
         disableUrlParams={false}
-        colorList={colorList}
       /> */}
     </div>
   );

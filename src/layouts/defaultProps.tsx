@@ -10,6 +10,12 @@ export default {
         component: './Welcome',
       },
       {
+        path: '/grid',
+        name: '响应式布局',
+        icon: <SmileOutlined />,
+        component: './Grid',
+      },
+      {
         path: '/admin',
         name: '管理页',
         icon: <CrownOutlined />,
