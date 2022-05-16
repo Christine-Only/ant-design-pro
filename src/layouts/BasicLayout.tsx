@@ -37,7 +37,7 @@ const BasicLayout: React.FC<ProLayoutProps> = ({ children }) => {
         location={{ pathname }}
         // eslint-disable-next-line react/no-unstable-nested-components
         menuFooterRender={(menuProps) => {
-          console.log('menuProps: ', menuProps);
+          // console.log('menuProps: ', menuProps);
           return (
             <a
               style={{

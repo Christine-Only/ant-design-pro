@@ -19,6 +19,11 @@
         name: '虚拟DOM',
         component: './React/VDOM',
       },
+      {
+        path: '/react/setState',
+        name: 'setState',
+        component: './React/SetState',
+      },
     ],
   },
   {
